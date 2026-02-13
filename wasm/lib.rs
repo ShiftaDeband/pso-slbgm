@@ -5,7 +5,7 @@ use lewton::VorbisError;
 use std::io::Cursor;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::JsFuture;
-use web_sys::{console, DedicatedWorkerGlobalScope, Request, RequestInit, Response};
+use web_sys::{DedicatedWorkerGlobalScope, Request, RequestInit, Response};
 
 struct OggStream {
     chunks: Vec<Vec<f32>>,
@@ -43,7 +43,7 @@ impl OggStream {
 
 async fn download_file(path: &str) -> Result<Vec<u8>, JsValue> {
     let mut opts = RequestInit::new();
-    opts.method("GET");
+    opts.set_method("GET");
     let request = Request::new_with_str_and_init(path, &opts)?;
     let window: DedicatedWorkerGlobalScope = js_sys::global().dyn_into().unwrap();
     let js_response = JsFuture::from(window.fetch_with_request(&request)).await?;
