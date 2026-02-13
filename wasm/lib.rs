@@ -42,7 +42,7 @@ impl OggStream {
 }
 
 async fn download_file(path: &str) -> Result<Vec<u8>, JsValue> {
-    let mut opts = RequestInit::new();
+    let opts = RequestInit::new();
     opts.set_method("GET");
     let request = Request::new_with_str_and_init(path, &opts)?;
     let window: DedicatedWorkerGlobalScope = js_sys::global().dyn_into().unwrap();
